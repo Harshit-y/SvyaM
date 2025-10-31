@@ -12,7 +12,7 @@ router.post("/register", async(req, res) => {
             const userExists = await User.findOne({email});
             if(userExists) return res
                 .status(409)
-                .json({message})
+                .json({message: "user already exists"})
 
             const salt = await bcrypt.genSalt(10)
             const hashedPassword = await bcrypt.hash(password, salt)
