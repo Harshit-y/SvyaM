@@ -25,8 +25,17 @@ router.post("/register", async(req, res) => {
                 {email: user.email}
             })
         }catch (err){
-            res.status(500).json({message: "Server error"})
+            res.status(500).json({message: "Server error"});
         }
+});
+
+router.get("/users", async(req, res) =>{
+    try{
+        const users = await User.find().select("-password");
+        res.status(200).json(users);
+    }catch(err){
+        res.status(500).json({message: "Server error"});
+    }
 })
 
 export default router;
