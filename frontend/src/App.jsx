@@ -1,56 +1,49 @@
-import { useState } from "react"
-import axios from "axios"
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+
+// We'll create these components in the next steps
+// For now, they are just placeholders
+
+const HomePage = () => <div className="text-3xl font-semibold">Welcome to SvyaM</div>;
+const LoginPage = () => <div>Login Page Content</div>;
+const SignupPage = () => <div>Signup Page Content</div>;
+const SubmitPage = () => <div>Submit Complain Page Content</div>;
+const StatusPage = () => <div>Check Status Page Content</div>;
+const AdminPage = () => <div>Admin Dashboard Content</div>;
 
 function App() {
-  const[email, setEmail] = useState("");
-  const[password, setPassword] = useState("");
-  const[message, setMessage] = useState("");
+  const [page, setPage] = useState('home');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
-    try{
-      const res = await axios.post('/api/users/register', {
-        email, password
-      } )
-      console.log(res.data)
-      setMessage(res.data.message)
-      setEmail("")
-      setPassword("")
-    }catch(err){
-      setMessage(err.response?.data?.message || "Something went wrong")
+  const renderPage = () => {
+    switch (page) {
+      case 'home':
+        return <HomePage />;
+      case 'login':
+        return <LoginPage />;
+      case 'signup':
+        return <SignupPage />;
+      case 'submit':
+        return <SubmitPage />;
+      case 'status':
+        return <StatusPage />;
+      case 'admin':
+        return <AdminPage />;
+      default:
+        return <HomePage />;
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md max-w-sm">
-        <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded mb-3 w-full"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="border p-2 rounded mb-3 w-full"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button className="w-full bg-black text-white p-2 rounded cursor-pointer hover:bg-gray-800">
-          Register
-        </button>
-        {message &&(
-          <p className="mt-3 text-gray-700">{message}</p>
-        )}
-      </form>
+    // This outer div sets the global theme: white bg, black text, Poppins font
+    <div className="flex flex-col min-h-screen bg-white text-black font-poppins">
+      <Navbar setPage={setPage} />
+
+      {/* This main content area fills the remaining space and centers content */}
+      <main className="flex-1 flex items-center justify-center text-center p-4">
+        {renderPage()}
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
