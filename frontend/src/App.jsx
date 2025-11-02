@@ -2,14 +2,13 @@ import { useState } from 'react';
 import Navbar from './components/Navbar';
 import { useAuth } from './context/AuthContext';
 
-// --- 1. Import our new page components ---
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import SubmitComplaintPage from './pages/SubmitComplaintPage';
+import StatusPage from './pages/StatusPage'; // <-- 1. Import
 
 // --- Placeholders (we'll build these next) ---
-const SubmitPage = () => <div>Submit Complain Page Content</div>;
-const StatusPage = () => <div>Check Status Page Content</div>;
 const AdminPage = () => <div>Admin Dashboard Content</div>;
 // ---
 
@@ -20,19 +19,20 @@ function App() {
   const renderPage = () => {
     switch (page) {
       case 'home':
-        return <HomePage setPage={setPage} />; // <-- 2. Use component
+        return <HomePage setPage={setPage} />; 
 
       case 'login':
-        return user ? <HomePage setPage={setPage} /> : <LoginPage setPage={setPage} />; // <-- 2. Use component
+        return user ? <HomePage setPage={setPage} /> : <LoginPage setPage={setPage} />; 
 
       case 'signup':
-        return user ? <HomePage setPage={setPage} /> : <SignupPage setPage={setPage} />; // <-- 2. Use component
+        return user ? <HomePage setPage={setPage} /> : <SignupPage setPage={setPage} />; 
 
       case 'submit':
-        return user ? <SubmitPage setPage={setPage} /> : <LoginPage setPage={setPage} />; 
+        return user ? <SubmitComplaintPage /> : <LoginPage setPage={setPage} />; // Removed unneeded setPage
 
       case 'status':
-        return user ? <StatusPage setPage={setPage} /> : <LoginPage setPage={setPage} />;
+        // --- 2. Replace placeholder ---
+        return user ? <StatusPage /> : <LoginPage setPage={setPage} />;
 
       case 'admin':
         return user && user.role === 'admin' ? <AdminPage setPage={setPage} /> : <HomePage setPage={setPage} />;
@@ -46,7 +46,7 @@ function App() {
     <div className="flex flex-col min-h-screen bg-white text-black font-poppins">
       <Navbar setPage={setPage} />
 
-      <main className="flex-1 flex items-center justify-center text-center p-4">
+      <main className="flex-1 flex justify-center p-4 md:p-8">
         {renderPage()}
       </main>
     </div>
