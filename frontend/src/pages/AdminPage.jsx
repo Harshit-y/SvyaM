@@ -155,7 +155,7 @@ function AdminPage() {
                     <option value="Submitted">Submitted</option>
                     <option value="Registered By Concerned Authority/Department">Registered</option>
                     <option value="Started Working">Started Working</option>
-                    <option value="Complain Resolved">Resolved</option>
+                    <option value="Complaint Resolved">Resolved</option>
                   </select>
                 </td>
               </tr>

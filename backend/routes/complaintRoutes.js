@@ -14,7 +14,7 @@ router.post('/submit', protect, upload.single('photo'), async (req, res) => {
   try {
     const { title, description, location, concernedAuthority } = req.body;
 
-    
+    const photoUrl = req.file ? `/${req.file.path.replace(/\\/g, '/')}` : null;
 
     const complaint = new Complaint({
       title,
@@ -81,7 +81,7 @@ router.put('/status/:id', protect, adminOnly, async (req, res) => {
       'Submitted',
       'Registered By Concerned Authority/Department',
       'Started Working',
-      'Complain Resolved'
+      'Complaint Resolved'
     ];
 
     const currentIndex = statuses.indexOf(complaint.status);

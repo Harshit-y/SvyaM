@@ -105,3 +105,4 @@ backend/.env.production.local
 backend/logs/
 backend/tmp/
 backend/dist/
+backend/uploads

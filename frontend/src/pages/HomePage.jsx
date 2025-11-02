@@ -5,13 +5,18 @@ function HomePage({ setPage }) {
 
   return (
     <div className="flex flex-col items-center text-center max-w-2xl">
+      {/* This is the new, more appealing text */}
       <h1 className="text-4xl md:text-5xl font-bold mb-4">
-        Welcome to SvyaM
+        Empowering Citizens. Improving Communities.
       </h1>
       <p className="text-lg md:text-xl text-gray-700 mb-8">
-        Your platform for reporting and resolving civic issues.
-        Report potholes, noise, littering, and more, directly to the concerned authorities.
+        SvyaM is your direct line to real change. From potholes and littering
+        to public safety concerns, report issues directly to the concerned
+        authorities. Submit your complaint, upload a photo, and track its
+        progress from submission to resolution.
       </p>
+      
+      {/* This button logic remains the same */}
       {user ? (
         // User is logged in
         <button 
