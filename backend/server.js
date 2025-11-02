@@ -4,8 +4,14 @@ import { connectDB } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import complaintRoutes from './routes/complaintRoutes.js';
 import cookieParser from 'cookie-parser';
+import path from 'path'; // <-- Import path module
+import { fileURLToPath } from 'url'; // <-- Import url module
 
 dotenv.config();
+
+// ES Module way to get __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,6 +25,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoutes)
 app.use('/api/complaints', complaintRoutes);
+
+// --- Make 'uploads' folder static ---
+// This line serves files from the 'uploads' directory
+// under the '/uploads' URL path.
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 connectDB();
 

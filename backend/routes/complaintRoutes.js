@@ -1,6 +1,7 @@
 import express from 'express';
 import { protect, adminOnly } from '../middleware/authMiddleware.js';
 import Complaint from '../models/complaint.js';
+import { upload } from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
 
@@ -9,16 +10,18 @@ const router = express.Router();
 // @desc    Create a new complaint
 // @route   POST /api/complaints/submit
 // @access  Private (User)
-router.post('/submit', protect, async (req, res) => {
+router.post('/submit', protect, upload.single('photo'), async (req, res) => {
   try {
     const { title, description, location, concernedAuthority } = req.body;
+
+    
 
     const complaint = new Complaint({
       title,
       description,
       location,
       concernedAuthority,
-      // 'photoUrl' will be added in the next step
+      photoUrl: photoUrl,
       submittedBy: req.user._id, // <-- Link to the logged-in user
       // 'status' will default to 'Submitted'
     });
@@ -26,6 +29,7 @@ router.post('/submit', protect, async (req, res) => {
     const createdComplaint = await complaint.save();
     res.status(201).json(createdComplaint);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
