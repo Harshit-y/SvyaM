@@ -137,9 +137,9 @@ cd svyam
 
 ### **Creating an Admin User**
 
-1.**Register** a new user (e.g., `admin@example.com`) through the frontend "Sign Up" page.
-2.**Log in** to your MongoDB Atlas account and "Browse Collections."
-3.  Find the new user you just created in the **`users`** collection.
-4.**Edit** the user document and change the `role` field from `"user"` to `"admin"`.
-5.**Save** the document.
-6.  You can now log in with this account to access the **Admin Dashboard**.
+1. **Register** a new user (e.g., `admin@example.com`) through the frontend "Sign Up" page.
+2. **Log in** to your MongoDB Atlas account and "Browse Collections."
+3. Find the new user you just created in the **`users`** collection.
+4. **Edit** the user document and change the `role` field from `"user"` to `"admin"`.
+5. **Save** the document.
+6. You can now log in with this account to access the **Admin Dashboard**.
