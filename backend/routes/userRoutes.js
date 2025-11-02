@@ -87,4 +87,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// @desc    Logout user / clear cookie
+// @route   POST /api/users/logout
+router.post('/logout', (req, res) => {
+  // We "clear" the cookie by setting it to an empty string
+  // and making it expire immediately.
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0), // Set expiration to a time in the past
+  });
+  res.status(200).json({ message: 'User logged out successfully' });
+});
+
 export default router;
