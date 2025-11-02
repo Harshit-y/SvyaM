@@ -1,44 +1,51 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
+import { useAuth } from './context/AuthContext';
 
-// We'll create these components in the next steps
-// For now, they are just placeholders
+// --- 1. Import our new page components ---
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
-const HomePage = () => <div className="text-3xl font-semibold">Welcome to SvyaM</div>;
-const LoginPage = () => <div>Login Page Content</div>;
-const SignupPage = () => <div>Signup Page Content</div>;
+// --- Placeholders (we'll build these next) ---
 const SubmitPage = () => <div>Submit Complain Page Content</div>;
 const StatusPage = () => <div>Check Status Page Content</div>;
 const AdminPage = () => <div>Admin Dashboard Content</div>;
+// ---
 
 function App() {
   const [page, setPage] = useState('home');
+  const { user } = useAuth(); 
 
   const renderPage = () => {
     switch (page) {
       case 'home':
-        return <HomePage />;
+        return <HomePage setPage={setPage} />; // <-- 2. Use component
+
       case 'login':
-        return <LoginPage />;
+        return user ? <HomePage setPage={setPage} /> : <LoginPage setPage={setPage} />; // <-- 2. Use component
+
       case 'signup':
-        return <SignupPage />;
+        return user ? <HomePage setPage={setPage} /> : <SignupPage setPage={setPage} />; // <-- 2. Use component
+
       case 'submit':
-        return <SubmitPage />;
+        return user ? <SubmitPage setPage={setPage} /> : <LoginPage setPage={setPage} />; 
+
       case 'status':
-        return <StatusPage />;
+        return user ? <StatusPage setPage={setPage} /> : <LoginPage setPage={setPage} />;
+
       case 'admin':
-        return <AdminPage />;
+        return user && user.role === 'admin' ? <AdminPage setPage={setPage} /> : <HomePage setPage={setPage} />;
+
       default:
-        return <HomePage />;
+        return <HomePage setPage={setPage} />;
     }
   };
 
   return (
-    // This outer div sets the global theme: white bg, black text, Poppins font
     <div className="flex flex-col min-h-screen bg-white text-black font-poppins">
       <Navbar setPage={setPage} />
 
-      {/* This main content area fills the remaining space and centers content */}
       <main className="flex-1 flex items-center justify-center text-center p-4">
         {renderPage()}
       </main>
