@@ -6,11 +6,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SubmitComplaintPage from './pages/SubmitComplaintPage';
-import StatusPage from './pages/StatusPage'; // <-- 1. Import
-
-// --- Placeholders (we'll build these next) ---
-const AdminPage = () => <div>Admin Dashboard Content</div>;
-// ---
+import StatusPage from './pages/StatusPage';
+import AdminPage from './pages/AdminPage'; // <-- 1. Import
 
 function App() {
   const [page, setPage] = useState('home');
@@ -28,14 +25,14 @@ function App() {
         return user ? <HomePage setPage={setPage} /> : <SignupPage setPage={setPage} />; 
 
       case 'submit':
-        return user ? <SubmitComplaintPage /> : <LoginPage setPage={setPage} />; // Removed unneeded setPage
+        return user ? <SubmitComplaintPage /> : <LoginPage setPage={setPage} />;
 
       case 'status':
-        // --- 2. Replace placeholder ---
         return user ? <StatusPage /> : <LoginPage setPage={setPage} />;
 
       case 'admin':
-        return user && user.role === 'admin' ? <AdminPage setPage={setPage} /> : <HomePage setPage={setPage} />;
+        // --- 2. Replace placeholder ---
+        return user && user.role === 'admin' ? <AdminPage /> : <HomePage setPage={setPage} />;
 
       default:
         return <HomePage setPage={setPage} />;
