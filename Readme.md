@@ -143,3 +143,8 @@ cd svyam
 4. **Edit** the user document and change the `role` field from `"user"` to `"admin"`.
 5. **Save** the document.
 6. You can now log in with this account to access the **Admin Dashboard**.
+
+## Contributors
+
+1. Devansh Singh
+2. Harshit Yadav
